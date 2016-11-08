@@ -18,13 +18,19 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css"
+        "styles.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.css"
       ],
       "scripts": [],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
+        "prod": "environments/environment.prod.ts",
+        "scripts": [
+          "../node_modules/jquery/dist/jquery.js",
+          "../node_modules/tether/dist/js/tether.js",
+          "../node_modules/bootstrap/dist/js/bootstrap.js"
+        ]
       }
     }
   ],
