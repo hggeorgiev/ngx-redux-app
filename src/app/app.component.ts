@@ -2,10 +2,10 @@
  * Angular 2 decorators and services
  */
 import { Component } from '@angular/core';
-import {Operation} from "./common/operation.model";
-import {State, Store} from "@ngrx/store";
-import {ADD_OPERATION, REMOVE_OPERATION, INCREMENT_OPERATION, DECREMENT_OPERATION} from "./common/operations";
 
+import {State, Store} from "@ngrx/store";
+import * as operations from "./common/actions/operations"
+import {Operation} from "./common/models/operation.model";
 
 @Component({
   selector: 'app-root',
@@ -32,24 +32,24 @@ export class AppComponent {
 
 
   addOperation(operation) {
-    this._store.dispatch({type: ADD_OPERATION , payload: {
-      id: ++ this.id,//simulating ID increments
+    this._store.dispatch(new operations.AddOperationAction({id: ++ this.id,//simulating ID increments
       reason: operation.reason,
       amount: operation.amount
-    }});
+    })
+    );
   }
 
   incrementOperation(operation){
-    this._store.dispatch({type: INCREMENT_OPERATION, payload: operation})
+    this._store.dispatch(new operations.IncrementOperationAction(operation))
   }
 
   decrementOperation(operation) {
-    this._store.dispatch({type: DECREMENT_OPERATION, payload: operation})
+    this._store.dispatch(new operations.DecrementOperationAction(operation))
   }
 
 
   deleteOperation(operation) {
-    this._store.dispatch({type: REMOVE_OPERATION, payload: operation})
+    this._store.dispatch(new operations.RemoveOperationAction(operation))
   }
 
 
