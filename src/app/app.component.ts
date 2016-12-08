@@ -1,22 +1,25 @@
-/*
- * Angular 2 decorators and services
- */
-import { Component } from '@angular/core';
 
+import { Component } from '@angular/core';
 import {State, Store} from "@ngrx/store";
 import * as operations from "./common/actions/operations"
 import {Operation} from "./common/models/operation.model";
+/*
 
+ In order to access the application state, reference the reducers folder again,
+ accessing all the exported members from it though index.ts
+ */
+import * as fromRoot from './common/reducers';
 @Component({
   selector: 'app-root',
-  template: `<div class="container">
-      <new-operation (addOperation)="addOperation($event)"></new-operation>
-      <operations-list [operations]="operations | async"  
-      (deleteOperation)="deleteOperation($event)"
-      (incrementOperation)="incrementOperation($event)"
-      (decrementOperation)="decrementOperation($event)"></operations-list>
-</div>
-
+  template: `
+      <div class="container">
+           
+            <new-operation (addOperation)="addOperation($event)"></new-operation>
+            <operations-list [operations]="operations| async"  
+            (deleteOperation)="deleteOperation($event)"
+            (incrementOperation)="incrementOperation($event)"
+            (decrementOperation)="decrementOperation($event)"></operations-list>
+      </div>
 `
 })
 export class AppComponent {
@@ -25,8 +28,8 @@ export class AppComponent {
   public operations:Array<Operation>;
 
 
-  constructor(private _store: Store<State>) {
-    this.operations = _store.select('operations')
+  constructor(private _store: Store<fromRoot.State>) {
+    this.operations = this._store.let(fromRoot.getEntities)
 
   }
 

@@ -1,35 +1,55 @@
-import {ActionReducer, Action, State} from '@ngrx/store';
+import '@ngrx/core/add/operator/select';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/let';
+import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as operations from '../actions/operations';
 import {Operation} from "../models/operation.model";
 
 
+/*add interface
+  From a simple array ( [] ),
+  the state becomes a object where the array is contained
+  withing the entities property
+  **/
+export interface State {
+  entities:Array<Operation>
+};
+
+const initialState: State = {  entities: []};
 
 
-const initialState:State = [];
-
-
-export const operationsReducer: ActionReducer = (state = initialState, action: operations.Actions) => {
+export function reducer(state = initialState, action: operations.Actions): State {
   switch (action.type) {
-    case operations.ActionTypes.ADD_OPERATION:
-      const operation:Operation = action.payload;
-      return [ ...state, operation ];
+    case operations.ActionTypes.ADD_OPERATION: {
+      const operation: Operation = action.payload;
+      return {
+        entities: [...state.entities, operation]
+      };
 
-    case operations.ActionTypes.INCREMENT_OPERATION:
+    }
+
+    case operations.ActionTypes.INCREMENT_OPERATION: {
       const operation = ++action.payload.amount;
-      return state.map(item => {
-        return item.id === action.payload.id ? Object.assign({}, item, operation) : item;
+      return Object.assign({}, state, {
+        entities: state.entities.map(item => item.id === action.payload.id ? Object.assign({}, item, operation) : item)
       });
+    }
 
-    case operations.ActionTypes.DECREMENT_OPERATION:
+    case operations.ActionTypes.DECREMENT_OPERATION: {
       const operation = --action.payload.amount;
-      return state.map(item => {
-        return item.id === action.payload.id ? Object.assign({}, item, operation) : item;
+      return Object.assign({}, state, {
+         entities: state.entities.map(item => item.id === action.payload.id ? Object.assign({}, item, operation) : item)
       });
+    }
 
-    case operations.ActionTypes.REMOVE_OPERATION:
-      return state.filter(operation => {
-        return operation.id !== action.payload.id;
-      });
+    case operations.ActionTypes.REMOVE_OPERATION: {
+
+      return Object.assign({}, state, {
+        entities: state.entities.filter(operation => operation.id !== action.payload.id)
+      })
+
+    }
 
 
     default:
@@ -37,3 +57,7 @@ export const operationsReducer: ActionReducer = (state = initialState, action: o
   }
 
 };
+
+export function getEntities(state$: Observable<State>) {
+  return state$.select(s => s.entities);
+}

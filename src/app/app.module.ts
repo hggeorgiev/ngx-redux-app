@@ -3,13 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import {StoreModule} from "@ngrx/store";
-import {operationsReducer} from "./common/operations";
 import {CommonModule} from "@angular/common";
 import {NewOperation} from "./new-operation.component";
 import {OperationsList} from "./operations-list.component";
+import {reducer} from "./common/reducers/index";
 
 
 @NgModule({
@@ -24,7 +23,15 @@ import {OperationsList} from "./operations-list.component";
     CommonModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ operations: operationsReducer }),
+    /**
+     * StoreModule.provideStore is imported once in the root module, accepting a reducer
+     * function or object map of reducer functions. If passed an object of
+     * reducers, combineReducers will be run creating your application
+     * meta-reducer. This returns all providers for an @ngrx/store
+     * based application.
+     */
+    StoreModule.provideStore(reducer),
+
   ],
 })
 export class AppModule {
