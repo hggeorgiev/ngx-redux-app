@@ -2,16 +2,15 @@ import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as operations from '../actions/operations';
 import {Operation} from "../models/operation.model";
 
 
-/*add interface
+/*
   From a simple array ( [] ),
   the state becomes a object where the array is contained
   withing the entities property
-  **/
+ */
 export interface State {
   entities:Array<Operation>
 };
@@ -50,8 +49,6 @@ export function reducer(state = initialState, action: operations.Actions): State
       })
 
     }
-
-
     default:
       return state;
   }

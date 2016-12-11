@@ -1,19 +1,7 @@
-/**
- * combineReducers is another useful metareducer that takes a map of reducer
- * functions and creates a new reducer that stores the gathers the values
- * of each reducer and stores them using the reducer's key. Think of it
- * almost like a database, where every reducer is a table in the db.
- *
- * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
- */
+
 import {combineReducers, ActionReducer} from '@ngrx/store';
 
-/**
- * Every reducer module's default export is the reducer function itself. In
- * addition, each module should export a type or interface that describes
- * the state of the reducer plus any selector functions. The `* as`
- * notation packages up all of the exports into a single object.
- */
+
 import * as fromLayout from '../reducers/layout';
 import * as fromOperations from '../reducers/operations';
 import {Observable} from "rxjs";
@@ -53,7 +41,6 @@ export function reducer(state: any, action: any) {
 
 
 export function getOperations(state$: Observable<State>) {
-   console.log(state$);
    return state$.select(state => state.operations);
 }
 
