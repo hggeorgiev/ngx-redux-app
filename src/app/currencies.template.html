@@ -1,0 +1,4 @@
+Convert to: {{selectedCurrency}}
+<select (change)="currencySelected.emit($event.target.value)">
+  <option *ngFor="let currency of currencies">{{currency}}</option>
+</select>

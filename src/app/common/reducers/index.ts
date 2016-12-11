@@ -1,9 +1,8 @@
 
 import {combineReducers, ActionReducer} from '@ngrx/store';
-
-
-import * as fromLayout from '../reducers/layout';
 import * as fromOperations from '../reducers/operations';
+import * as fromCurrencies from '../reducers/currencies';
+
 import {Observable} from "rxjs";
 import {compose} from "@ngrx/core";
 
@@ -15,7 +14,8 @@ import {compose} from "@ngrx/core";
  */
 export interface State {
   operations: fromOperations.State;
-  layout: fromLayout.State;
+  currencies: fromCurrencies.State;
+
 
 }
 
@@ -29,7 +29,7 @@ export interface State {
  */
 const reducers = {
   operations: fromOperations.reducer,
-  layout: fromLayout.reducer,
+  currencies: fromCurrencies.reducer
 
 };
 
@@ -44,5 +44,9 @@ export function getOperations(state$: Observable<State>) {
    return state$.select(state => state.operations);
 }
 
+export function getCurrencies(state$: Observable<State>) {
+  return state$.select(state => state.currencies);
+}
 export const getEntities = compose(fromOperations.getEntities, getOperations);
-
+export const getCurrencyEntities = compose(fromCurrencies.getCurrenciesEntities , getCurrencies);
+export const getSelectedCurrency = compose(fromCurrencies.getSelectedCurrency , getCurrencies);

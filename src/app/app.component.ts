@@ -9,12 +9,14 @@ import {Operation} from "./common/models/operation.model";
  accessing all the exported members from it though index.ts
  */
 import * as fromRoot from './common/reducers';
+import {Observable} from "rxjs";
 @Component({
   selector: 'app-root',
   template: `
       <div class="container">
            
             <new-operation (addOperation)="addOperation($event)"></new-operation>
+            <currencies [currencies]="currencies | async" [selectedCurrency]="selectedCurrency | async"></currencies>
             <operations-list [operations]="operations| async"  
             (deleteOperation)="deleteOperation($event)"
             (incrementOperation)="incrementOperation($event)"
@@ -25,17 +27,22 @@ import * as fromRoot from './common/reducers';
 export class AppComponent {
 
   public id:number = 0 ; //simulating IDs
-  public operations:Array<Operation>;
+  public operations:Observable<Operation[]>;
+  public currencies:Observable<string[]>;
+  public selectedCurrency: Observable<string>;
 
 
   constructor(private _store: Store<fromRoot.State>) {
-    this.operations = this._store.let(fromRoot.getEntities)
+    this.operations = this._store.let(fromRoot.getEntities);
+    this.currencies = this._store.let(fromRoot.getCurrencyEntities);
+    this.selectedCurrency = this._store.let(fromRoot.getSelectedCurrency);
 
   }
 
 
   addOperation(operation) {
-    this._store.dispatch(new operations.AddOperationAction({id: ++ this.id,//simulating ID increments
+    this._store.dispatch(new operations.AddOperationAction({
+        id: ++ this.id,//simulating ID increments
       reason: operation.reason,
       amount: operation.amount
     })

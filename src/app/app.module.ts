@@ -9,6 +9,7 @@ import {CommonModule} from "@angular/common";
 import {NewOperation} from "./new-operation.component";
 import {OperationsList} from "./operations-list.component";
 import {reducer} from "./common/reducers/index";
+import {Currencies} from "./currencies.component";
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {reducer} from "./common/reducers/index";
     AppComponent,
     NewOperation,
     OperationsList,
+    Currencies
   ],
   imports: [ // import Angular's modules
     BrowserModule,
