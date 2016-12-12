@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <ul class="list-group" >
       <li *ngFor="let operation of operations"class="list-group-item" [ngClass]="{'list-group-item-success': operation.amount > 0 ,'list-group-item-danger': operation.amount < 0 }">
-        <h3 class="h3">$ {{operation.amount}}</h3>
+        <h3 class="h3">$ {{operation.amount | currencyPipe: selectedCurrency}}</h3>
         <p><span class="text-muted">Reason:</span> {{operation.reason}}</p>
         <div class="btn-group">
           <button class="btn btn-success" (click)="incrementOperation.emit(operation)">+</button>

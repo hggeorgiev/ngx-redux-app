@@ -16,9 +16,11 @@ export interface State {
 };
 
 const initialState: State = {  entities: []};
-
+const fx = require('money');
+fx.base = "USD";
 
 export function reducer(state = initialState, action: operations.Actions): State {
+
   switch (action.type) {
     case operations.ActionTypes.ADD_OPERATION: {
       const operation: Operation = action.payload;
@@ -49,6 +51,7 @@ export function reducer(state = initialState, action: operations.Actions): State
       })
 
     }
+
     default:
       return state;
   }

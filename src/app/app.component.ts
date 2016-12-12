@@ -1,7 +1,8 @@
 
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {State, Store} from "@ngrx/store";
 import * as operations from "./common/actions/operations"
+import * as currencies from "./common/actions/currencies"
 import {Operation} from "./common/models/operation.model";
 /*
 
@@ -16,8 +17,9 @@ import {Observable} from "rxjs";
       <div class="container">
            
             <new-operation (addOperation)="addOperation($event)"></new-operation>
-            <currencies [currencies]="currencies | async" [selectedCurrency]="selectedCurrency | async"></currencies>
-            <operations-list [operations]="operations| async"  
+            <currencies (currencySelected)="onCurrencySelected($event)" [currencies]="currencies | async" [selectedCurrency]="selectedCurrency | async"></currencies>
+            <operations-list [operations]="operations| async"
+            [selectedCurrency]="selectedCurrency | async"
             (deleteOperation)="deleteOperation($event)"
             (incrementOperation)="incrementOperation($event)"
             (decrementOperation)="decrementOperation($event)"></operations-list>
@@ -36,6 +38,8 @@ export class AppComponent {
     this.operations = this._store.let(fromRoot.getEntities);
     this.currencies = this._store.let(fromRoot.getCurrencyEntities);
     this.selectedCurrency = this._store.let(fromRoot.getSelectedCurrency);
+    _store.dispatch( new currencies.LoadCurrencyRatesAction())
+
 
   }
 
@@ -49,6 +53,8 @@ export class AppComponent {
     );
   }
 
+
+
   incrementOperation(operation){
     this._store.dispatch(new operations.IncrementOperationAction(operation))
   }
@@ -60,6 +66,10 @@ export class AppComponent {
 
   deleteOperation(operation) {
     this._store.dispatch(new operations.RemoveOperationAction(operation))
+  }
+
+  onCurrencySelected(currency:string) {
+    this._store.dispatch(new currencies.ChangeCurrencyAction(currency))
   }
 
 

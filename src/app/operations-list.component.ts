@@ -14,6 +14,7 @@ import {Operation} from "./common/models/operation.model";
 
 export class OperationsList {
   @Input() operations:Array<Operation>;
+  @Input() selectedCurrency:string;
 
   constructor() {}
 

@@ -36,6 +36,7 @@ export class DecrementOperationAction implements Action {
   constructor(public payload:Operation) { }
 }
 
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types

@@ -5,6 +5,12 @@ import * as fromCurrencies from '../reducers/currencies';
 
 import {Observable} from "rxjs";
 import {compose} from "@ngrx/core";
+import {combineLatest} from "rxjs/observable/combineLatest";
+import {Operation} from "../models/operation.model";
+
+
+const fx = require('money');
+fx.base = "USD";
 
 
 
@@ -50,3 +56,6 @@ export function getCurrencies(state$: Observable<State>) {
 export const getEntities = compose(fromOperations.getEntities, getOperations);
 export const getCurrencyEntities = compose(fromCurrencies.getCurrenciesEntities , getCurrencies);
 export const getSelectedCurrency = compose(fromCurrencies.getSelectedCurrency , getCurrencies);
+export const getCurrencyRates = compose(fromCurrencies.getRates , getCurrencies);
+
+

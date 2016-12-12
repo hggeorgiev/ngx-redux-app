@@ -10,6 +10,10 @@ import {NewOperation} from "./new-operation.component";
 import {OperationsList} from "./operations-list.component";
 import {reducer} from "./common/reducers/index";
 import {Currencies} from "./currencies.component";
+import {CurrencyEffects} from "./common/effects/currencies";
+import {EffectsModule} from "@ngrx/effects";
+import { CurrencyService} from "./common/services/currency.service";
+import {CustomCurrencyPipe} from "./currencyPipe";
 
 
 @NgModule({
@@ -18,13 +22,15 @@ import {Currencies} from "./currencies.component";
     AppComponent,
     NewOperation,
     OperationsList,
-    Currencies
+    Currencies,
+    CustomCurrencyPipe
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     CommonModule,
     FormsModule,
     HttpModule,
+    EffectsModule.run(CurrencyEffects),
     /**
      * StoreModule.provideStore is imported once in the root module, accepting a reducer
      * function or object map of reducer functions. If passed an object of
@@ -32,9 +38,12 @@ import {Currencies} from "./currencies.component";
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
+
     StoreModule.provideStore(reducer),
 
+
   ],
+  providers: [CurrencyService]
 })
 export class AppModule {
   constructor() {}
