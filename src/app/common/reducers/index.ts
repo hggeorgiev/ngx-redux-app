@@ -9,8 +9,6 @@ import {combineLatest} from "rxjs/observable/combineLatest";
 import {Operation} from "../models/operation.model";
 
 
-const fx = require('money');
-fx.base = "USD";
 
 
 
@@ -21,8 +19,6 @@ fx.base = "USD";
 export interface State {
   operations: fromOperations.State;
   currencies: fromCurrencies.State;
-
-
 }
 
 

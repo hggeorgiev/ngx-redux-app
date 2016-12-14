@@ -2,7 +2,12 @@ import {Component, Input, ChangeDetectionStrategy, Output, EventEmitter} from '@
 
 @Component({
     selector: 'currencies',
-    templateUrl: 'currencies.template.html',
+    template: `
+    '<div [ngModel]="selectedCurrency" (ngModelChange)="currencySelected.emit($event)" ngbRadioGroup name="radioBasic">
+    <label *ngFor="let currency of currencies" class="btn btn-primary">
+    <input type="radio" [value]="currency"> {{currency}}
+    </label>
+    </div>`,
      changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Currencies  {

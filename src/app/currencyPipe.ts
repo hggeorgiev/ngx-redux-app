@@ -19,9 +19,9 @@ export class CustomCurrencyPipe implements PipeTransform {
   transform(value: number , currency): string {
       if(currency != null) {
         value = fx.convert(value,  {from: "USD" , to: currency});
-        return value + currency;
+        return currency + ' ' + value;
       } else {
-        return value + currency;
+        return 'USD' + ' ' + value ;
       }
   }
 }

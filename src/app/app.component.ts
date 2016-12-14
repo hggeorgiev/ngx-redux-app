@@ -43,6 +43,9 @@ export class AppComponent {
 
   }
 
+  onCurrencySelected(currency:string) {
+    this._store.dispatch(new currencies.ChangeCurrencyAction(currency))
+  }
 
   addOperation(operation) {
     this._store.dispatch(new operations.AddOperationAction({
@@ -68,9 +71,7 @@ export class AppComponent {
     this._store.dispatch(new operations.RemoveOperationAction(operation))
   }
 
-  onCurrencySelected(currency:string) {
-    this._store.dispatch(new currencies.ChangeCurrencyAction(currency))
-  }
+
 
 
 

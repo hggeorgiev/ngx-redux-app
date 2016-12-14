@@ -2,7 +2,6 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import {StoreModule} from "@ngrx/store";
 import {CommonModule} from "@angular/common";
@@ -14,11 +13,13 @@ import {CurrencyEffects} from "./common/effects/currencies";
 import {EffectsModule} from "@ngrx/effects";
 import { CurrencyService} from "./common/services/currency.service";
 import {CustomCurrencyPipe} from "./currencyPipe";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [
+
     AppComponent,
     NewOperation,
     OperationsList,
@@ -26,19 +27,12 @@ import {CustomCurrencyPipe} from "./currencyPipe";
     CustomCurrencyPipe
   ],
   imports: [ // import Angular's modules
+    NgbModule,
     BrowserModule,
     CommonModule,
     FormsModule,
     HttpModule,
     EffectsModule.run(CurrencyEffects),
-    /**
-     * StoreModule.provideStore is imported once in the root module, accepting a reducer
-     * function or object map of reducer functions. If passed an object of
-     * reducers, combineReducers will be run creating your application
-     * meta-reducer. This returns all providers for an @ngrx/store
-     * based application.
-     */
-
     StoreModule.provideStore(reducer),
 
 
