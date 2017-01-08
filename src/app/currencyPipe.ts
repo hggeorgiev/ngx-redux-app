@@ -6,7 +6,6 @@ fx.base = "USD";
 
 @Pipe({
   name: 'currencyPipe',
-  pure: false
 })
 export class CustomCurrencyPipe implements PipeTransform {
 

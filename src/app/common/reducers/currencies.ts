@@ -9,14 +9,14 @@ import * as currencies from '../actions/currencies';
 export interface State {
   entities:Array<string>
   selectedCurrency: string | null;
-  rates: Array<Object>,
+  rates: string
   loadingRates:boolean
 };
 
 const initialState: State = {
     entities: ['GBP', 'EUR'],
     selectedCurrency: null,
-    rates: [] ,
+    rates: '',
     loadingRates: false
 };
 
@@ -36,7 +36,8 @@ export function reducer(state = initialState, action: currencies.Actions): State
         return {
           entities: state.entities,
           selectedCurrency: action.payload,
-          rates: state.rates
+          rates: state.rates,
+          loadingRates: false
         };
     }
     case currencies.ActionTypes.LOAD_RATES_COMPLETE: {

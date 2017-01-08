@@ -15,7 +15,7 @@ import {Observable} from "rxjs";
   selector: 'app-root',
   template: `
       <div class="container">
-           
+    
             <new-operation (addOperation)="addOperation($event)"></new-operation>
             <currencies (currencySelected)="onCurrencySelected($event)" [currencies]="currencies | async" [selectedCurrency]="selectedCurrency | async"></currencies>
             <operations-list [operations]="operations| async"
@@ -38,7 +38,7 @@ export class AppComponent {
     this.operations = this._store.let(fromRoot.getEntities);
     this.currencies = this._store.let(fromRoot.getCurrencyEntities);
     this.selectedCurrency = this._store.let(fromRoot.getSelectedCurrency);
-    _store.dispatch( new currencies.LoadCurrencyRatesAction())
+    _store.dispatch( new currencies.LoadCurrencyRatesAction(''))
 
 
   }

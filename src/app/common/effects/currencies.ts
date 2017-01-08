@@ -18,7 +18,7 @@ import {CurrencyService} from "../services/currency.service";
 import {LoadRatesCompleteAction} from "../actions/currencies";
 
 
-@Injectable()
+
 @Injectable()
 export class CurrencyEffects {
   constructor(
@@ -31,7 +31,7 @@ export class CurrencyEffects {
   @Effect() loadCategories$ = this._actions.ofType(currencyActions.ActionTypes.LOAD_CURRENCY_RATES)
     .switchMap(() => this._currencyService.loadCurrencies()
       .map((rates) => new LoadRatesCompleteAction(rates) )
-      .catch(() => Observable.of( new LoadRatesCompleteAction({})))
+      .catch(() => Observable.of( new LoadRatesCompleteAction('')))
     );
 
 
