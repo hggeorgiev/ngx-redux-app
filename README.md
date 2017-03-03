@@ -1,8 +1,8 @@
 # FinancesRedux
 
 This project is based on two tutorials about Redux with Angular 2.
-[Building a Redux application with Angular 2: Part One](https://www.pluralsight.com/guides/front-end-javascript/building-a-redux-application-with-angular-2-part-1)
-[Building a Redux application with Angular 2: Part Two](https://www.pluralsight.com/guides/front-end-javascript/building-a-redux-application-with-angular-2-part-2)
+-  [Building a Redux application with Angular 2: Part One](https://www.pluralsight.com/guides/front-end-javascript/building-a-redux-application-with-angular-2-part-1)
+-  [Building a Redux application with Angular 2: Part Two](https://www.pluralsight.com/guides/front-end-javascript/building-a-redux-application-with-angular-2-part-2)
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
